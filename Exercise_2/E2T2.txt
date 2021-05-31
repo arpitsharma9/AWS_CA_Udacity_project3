@@ -1,0 +1,29 @@
+##Research and analyze which of the vulnerabilities appear to be related to the code that was deployed for the environment in this project. Provide recommendations on how to remediate the vulnerabilities.
+
+1. AWS Inspector -
+	 Network Reachability - There are several ports which are reachable from internet. For instance, several TCP,UDP ports which are not associated with any process are reachable from the internet. 
+
+	Remediation - we must edit the Security Group to remove access from the internet on any unused ports.
+
+2. AWS Config - 
+
+	a. S3 Buckets - Server side encryption is not enabled. S3 buckets do have policies that require requests to use Secure Socket Layer (SSL). Also, logging is not enabled for your S3 buckets.
+	Remediation - Enable server side encryption, use HTTPs and enable logging for S3 buckets. 
+
+	b. IP addresses of the incoming SSH and RDP traffic in the security groups is not restricted. 
+	
+	Remediation - SSH and RDP access should be restrictive and if needed only allowed from limited number of authorized IPs.
+	
+	c. EBS volumes are not encrypted. 
+
+	Remediation - EBS volumes that are in an attached state should be encrypted.
+
+3. Security hub findings - Though many findings are covered above, I would cover the following ones here -
+	a. IAM - MFA should be enabled for root user and access key should not exist. 
+
+	Remediation - Enable MFA for root user. Delete any access key created for root user.
+
+
+	
+	
+
