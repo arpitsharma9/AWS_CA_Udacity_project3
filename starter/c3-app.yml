@@ -184,3 +184,6 @@ Outputs:
     Value: !GetAtt RecipeWebServiceInstance.PublicDnsName
   ApplicationURL:
     Value: !GetAtt AppLoadBalancer.DNSName
+
+
+

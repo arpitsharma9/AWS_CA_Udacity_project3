@@ -1,0 +1,19 @@
+1. EC2 instances vulnerabilties -
+	a. WebAppSG - Ingress traffic is allowed on all ports (sg-0bf1708088447c5e1), but application only needs port 5000 to be open. 
+	HTTP	TCP	80	0.0.0.0/0	–
+	All traffic	All	All	0.0.0.0/0	–
+	SSH	TCP	22	0.0.0.0/0	–
+	Custom TCP	TCP	5000	0.0.0.0/0	–
+
+	this will allow bad actors to exploit this vulnerabilty and they can  reach out to EC2 application instance in public subnet via external or internal medium and perform malacious activities.
+
+	b. EBS disks attached to both the EC2 instances are not encrypted. 
+	c. NACL - Both public and private subnet rules allow all traffic on all ports from all ports.   
+	d. Route table - IGW is attached to both the private and public subnet. A subnet is not private if it has routes to/from the Internet. So, IGW shoud not be attached to private subnet. If Egress traffic needs to be enabled, then NAT gateway should be attached to the private subnet.   
+
+2. S3 buckets
+	a. All the 3 S3 buckets are not encrypted and also "Block public access" setting is off which is not a good security practice. 
+	b. InstanceRolePolicy-C3  - This policy is not restrictive at all . The policy does not follow the principle of least privilege and bad actor can exploit this vulnerabilty.                                                 
+	"Action": "s3:*",
+            "Resource": "*",
+            "Effect": "Allow"     
