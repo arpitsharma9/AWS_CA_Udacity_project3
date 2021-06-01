@@ -1,0 +1,24 @@
+Task 1 - Remediation plan
+
+1. Identify 2-3 changes that can be made to our environment to prevent an SSH brute force attack from the internet.
+
+a. Do not allow ssh from the public internet to the ec2 instances. If it is required, we can have a security hardened bastion host in public subnet through 
+which user can access the application servers. 
+b. Disable ssh password login on application server and only allows ssh keys for login
+c. Restrict network traffic that can flow into  application server   
+d.We can also automatically block malicious IP addresses based on ssh brute force alerts based on the aws references below.
+
+We can also use a combination of Guardduty, WAF, Lambda and other AWS components to automatically block suspicious hosts. Below article referenced for the same. 
+https://aws.amazon.com/blogs/security/how-to-use-amazon-guardduty-and-aws-web-application-firewall-to-automatically-block-suspicious-hosts/
+
+
+2. Neither instance should have had access to the secret recipes bucket; even in the instance that API credentials were compromised how could we have prevented 
+access to sensitive data?
+
+a.  API are long-term credentials that are not automatically rotated and could have a significant business impact if they are compromised.
+So, API access should be disabled and only an IAM role should be used to manage temporary credentials for applications or services that need to access Amazon S3.
+Besides this, the current policy (InstanceRolePolicy) attached to instance role is not restrictive as it allows all operations on all resources(buckets). So, this 
+policy should be updated so that instance role can only read contents of "free recipe bucket".
+
+b. we can also implement bucket policy on secret recipe bucket to deny access to all except "priveleged business users".
+
