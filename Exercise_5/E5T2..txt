@@ -1,0 +1,30 @@
+## Identify tools that will allow you to do the following and example compliance violation
+
+1. Scan infrastructure as code templates.
+
+Use CFRipper which is a CLI security analyzer for AWS CloudFormation templates.
+
+### Example vulnerability
+
+S3BucketPublicReadWriteAclRule - "S3 Bucket S3Bucket should not have a public read-write acl",
+
+2. Scan AMI’s or containers for OS vulnerabilities.
+ 
+- Use Amazon ECR image scanner and Amazon inspector. 
+    a. Amazon ECR image scanning helps in identifying software vulnerabilities in your container images.
+    b. Amazon Inspector scanning helps in identifying common CVE for several Operating systems such as Linux, Ubuntu, Red Hat and Windows.
+
+### Example vulnerability
+ (CVE-2020-14318) -- 
+Samba update for Amzn2 (Amazon AWS), Red Hat Enterprise 7 and Oracle Linux 7
+Vendor Severity: Critical
+CVSS Score: 10
+A flaw was found in the way samba handled file and directory permissions. An authenticated user could use this flaw to gain access to certain file and directory information which otherwise would be unavailable to the attacker.
+
+3. Scan an AWS environment for cloud configuration vulnerabilities.
+        - Use Security HUB to aggregate security events from security monitoring tools such as AWS Config, Inspector and GuardDuty.
+
+### Example vulnerability
+     - EBS volumes that are in an attached state are not encrypted. According to "securityhub-encrypted-volumes-f44d074a" rule, 
+these volumes must be encrypted with KMS key. 
+
