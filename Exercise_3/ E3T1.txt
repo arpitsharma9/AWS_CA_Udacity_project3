@@ -1,0 +1,14 @@
+
+
+1. What findings were detected related to the brute force attack?
+
+GuardDuty detected 2 findings for the brute force attack. One finding for the target resource (Web Service Instance - C3) and one finding for the actor(Attack Instance - C3). 
+Actor performed brute force attack on the target through SSH port 22. The actor finding is assigned as high severity while the target finding is assigned as low severity. 
+
+
+2. Research the AWS Guard Duty documentation page and explain how GuardDuty may have detected this attack - i.e., what was its source of information?
+https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_data-sources.html
+
+To detect unauthorized and unexpected activity in your AWS environment, GuardDuty analyzes and processes data from AWS CloudTrail event logs, VPC Flow Logs, and DNS logs to detect anomalies involving the following AWS resource types: IAM Access Keys, EC2 Instances, and S3 Buckets.
+So, using these logs guard duty is able to identify the brute force attacked. 
+The remediation action is to restrict access on port 22 through valid ips by updating security group rules.
